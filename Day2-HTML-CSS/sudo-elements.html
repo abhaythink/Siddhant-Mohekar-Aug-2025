@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>sudo-elements</title>
+</head>
+<style>
+    p::first-line{
+        color: red;
+    }
+    p::first-letter{
+        color: blue;
+    }
+    h1::before{
+        content: "Mr. ";
+    }
+    h1::after{
+        content: " - Engineer";
+    }
+
+</style>
+<body>
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis ducimus tempora suscipit doloremque consequuntur ipsum fugit id dolorum, modi dicta, rem soluta libero, quibusdam rerum voluptates delectus temporibus distinctio reprehenderit!</p>
+    <h1>Siddhant Mohekar</h1>
+</body>
+</html>

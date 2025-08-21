@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" width="device-width,initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive</title>
+</head>
+
+<style>
+   h1{
+      background-color: lightblue;
+   }
+     .main{
+        display: flex;
+        justify-content: space-around;
+     }
+
+    .card1{
+        border: 2px dotted black;
+        padding: 10px;
+        width: 300px;
+        height: 400px;
+        border-radius: 5px;
+    }
+
+    @media  (max-width: 600px) {
+        .main{
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-around;
+        }
+
+    }
+</style>
+<body>
+      
+    <h1 style="font-size: 10vw;">Images</h1>
+
+    <p style="font-size: 2vw;">
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempore velit cum error voluptate, facere expedita nemo adipisci totam reprehenderit voluptas eaque laboriosam asperiores cumque sed, delectus iste dolorum quasi provident!
+    </p>
+
+
+     <!-- <img src="Images/JavaScript-logo.png" alt="JavaScript Logo" style="width: 100%;">
+     <img src="Images/JavaScript-logo.png" alt="JavaScript Logo" style="max-width: 100%;">
+
+     <picture>
+        <source srcset="/Images/pexels-photo-123123.jpeg" media="(min-width: 600px)">
+        <img src="/Images/JavaScript-logo.png" alt="image of picture tab">
+     </picture> -->
+  <div class="main">
+     <div class="card1">
+        <img src="/Day1-HTML/Images/JavaScript-logo.png" alt="JavaScript Logo" style="width: 100%;">
+        <h2>JavaScript</h2>
+     </div>
+
+     <div class="card1">
+        <img src="/Day1-HTML/Images/JavaScript-logo.png" alt="JavaScript Logo" style="width: 100%;">
+        <h2>JavaScript</h2>
+     </div>
+
+     <div class="card1">
+        <img src="/Day1-HTML/Images/JavaScript-logo.png" alt="JavaScript Logo" style="width: 100%;">
+        <h2>JavaScript</h2>
+     </div>
+
+     <div class="card1">
+        <img src="/Day1-HTML/Images/JavaScript-logo.png" alt="JavaScript Logo" style="width: 100%;">
+        <h2>JavaScript</h2>
+     </div>
+  </div>
+    
+
+</body>
+</html>

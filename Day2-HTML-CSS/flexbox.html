@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>flexbox</title>
+</head>
+<style>
+    .fb{
+        display: flex;
+        background-color: lightgray;
+    }
+
+    .fb > div{
+        background-color: grey;
+        margin: 10px;
+        padding: 10px;
+        font-size: 10px;
+    }
+
+    @media (max-width: 600px){
+        .fb{
+            flex-direction: column;
+        }
+    }
+
+     .fb1{
+        background-color: lightgray;
+       display: flex;
+       /* flex-direction: row-reverse; */
+       /* justify-content: center; */
+       /* justify-content: flex-end; */
+       justify-content: space-between;
+
+    }
+
+    .fb1 > div{
+        background-color: grey;
+        margin: 10px;
+        padding: 10px;
+        font-size: 10px;
+    }
+
+</style>
+<body>
+    <div>
+        <div class="fb">
+            <div style="order: 3;">Card 1</div>
+            <div style="flex-grow: 2;">Card 2</div>
+            <div>Card 3</div>
+        </div>
+    </div>
+
+     <div>
+        <div class="fb1">
+            <div>Card 1</div>
+            <div>Card 2</div>
+            <div>Card 3</div>
+        </div>
+    </div>
+</body>
+</html>
