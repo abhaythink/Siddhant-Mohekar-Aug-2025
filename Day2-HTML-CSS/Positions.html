@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=/, initial-scale=1.0">
+    <title>positions</title>
+</head>
+<style>
+    .visi{
+        height: 500px;
+        width: 500px;
+        border: 1px solid black;
+    }
+</style>
+<body>
+    <div class="visi" style="position: sticky; top: 0;"> sticky</div>
+    <div class="visi">static</div>
+    <div class="visi" style="position: relative;">
+        <div style="position: absolute; height: 100px; width: 100px; border: 1px solid black;"></div>
+    </div>
+    <div class="visi" style="position: fixed; top: 20px; right: 20px;"></div>
+</body>
+</html>
