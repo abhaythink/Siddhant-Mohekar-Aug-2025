@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grids</title>
+</head>
+<style>
+    .gl{
+        display: grid;
+        grid-template-columns: auto auto auto;
+        background-color: lightgrey;
+        padding: 20px;
+        /* column-gap: 50px;
+        row-gap: 20px; */
+        /* justify-content: space-evenly; */
+        justify-content: space-around ;
+        
+    }
+
+    .gl > div{
+        background-color: grey;
+        margin: 1px solid black;
+        font-size: 30px;
+        text-align: center;
+        padding: 10px;
+    }
+
+    .c1{
+        grid-column-start: 1;
+        grid-column-end: 3;
+    }
+</style>
+<body>
+    <div class="gl">
+        <div class="c1">card 1</div>
+        <div>card 2</div>
+        <div>card 3</div>
+        <div>card 4</div>
+        <div>card 5</div>
+    </div>
+</body>
+</html>
