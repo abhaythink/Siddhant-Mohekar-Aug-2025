@@ -11,6 +11,11 @@
         grid-template-columns: auto auto auto;
         background-color: lightgrey;
         padding: 20px;
+        /* column-gap: 50px;
+        row-gap: 20px; */
+        /* justify-content: space-evenly; */
+        justify-content: space-around ;
+        
     }
 
     .gl > div{
@@ -20,10 +25,15 @@
         text-align: center;
         padding: 10px;
     }
+
+    .c1{
+        grid-column-start: 1;
+        grid-column-end: 3;
+    }
 </style>
 <body>
     <div class="gl">
-        <div>card 1</div>
+        <div class="c1">card 1</div>
         <div>card 2</div>
         <div>card 3</div>
         <div>card 4</div>
