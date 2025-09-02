@@ -30,6 +30,9 @@ public class Patient {
     @NotNull(message = "Email is Required")
     @Email
     private String email;
+    @NotNull
+    private String slotTime;
+    private String status = "BOOKED";
     @NotNull(message = "Appointment Date is Required")
     private LocalDate appointmentDate;
 

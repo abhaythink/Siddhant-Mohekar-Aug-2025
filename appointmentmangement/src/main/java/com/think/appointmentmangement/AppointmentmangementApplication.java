@@ -12,7 +12,10 @@ public class AppointmentmangementApplication {
 		SpringApplication.run(AppointmentmangementApplication.class, args);
 	}
 
-	return new RestTemplate();
+	@Bean
+	public RestTemplate restTemplate(){
+		return new RestTemplate();
 	}
+
 
 }

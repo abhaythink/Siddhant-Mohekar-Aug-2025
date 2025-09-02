@@ -29,12 +29,28 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(res,HttpStatus.NOT_FOUND);
     } 
 
+    @ExceptionHandler(TimeSlotIsAlreadyBookException.class)
+    public ResponseEntity<Map<String,String>> handleTimeSlotIsAlreadyBookException(TimeSlotIsAlreadyBookException tx){
+        Map<String,String> res = new HashMap<>();
+        res.put("error", tx.getMessage());
+        res.put("status", "404");
+        return new ResponseEntity<>(res,HttpStatus.NOT_FOUND);
+    } 
+
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<Map<String,String>> handleValiadtionException(MethodArgumentNotValidException mx){
         Map<String,String> res = new HashMap<>();
         mx.getBindingResult().getFieldErrors().forEach(error -> {
             res.put(error.getField(), error.getDefaultMessage() );
         });
+        return new ResponseEntity<>(res,HttpStatus.NOT_FOUND);
+    } 
+
+    @ExceptionHandler(EmailAlreadyExsistException.class)
+    public ResponseEntity<Map<String,String>> handleEmailAlreadyExsistException(EmailAlreadyExsistException ex){
+        Map<String,String> res = new HashMap<>();
+        res.put("error", ex.getMessage());
+        res.put("status", "404");
         return new ResponseEntity<>(res,HttpStatus.NOT_FOUND);
     } 
     

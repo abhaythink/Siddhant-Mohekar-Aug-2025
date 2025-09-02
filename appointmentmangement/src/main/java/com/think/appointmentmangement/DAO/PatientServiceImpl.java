@@ -1,6 +1,8 @@
 package com.think.appointmentmangement.DAO;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -11,7 +13,9 @@ import org.springframework.web.client.RestTemplate;
 import com.think.appointmentmangement.Entity.Doctor;
 import com.think.appointmentmangement.Entity.Patient;
 import com.think.appointmentmangement.Exception.DateException;
+import com.think.appointmentmangement.Exception.EmailAlreadyExsistException;
 import com.think.appointmentmangement.Exception.PatientNotFoundException;
+import com.think.appointmentmangement.Exception.TimeSlotIsAlreadyBookException;
 import com.think.appointmentmangement.Repository.PatientRepository;
 import com.think.appointmentmangement.Service.PatientService;
 
@@ -53,9 +57,24 @@ public class PatientServiceImpl implements PatientService{
     }
 
     @Override
-    public String addPatient(Patient patient) throws DateException {
+    public String addPatient(Patient patient) throws DateException, TimeSlotIsAlreadyBookException, EmailAlreadyExsistException {
         if(patient.getAppointmentDate().isBefore(LocalDate.now())){
             throw new DateException("Date should be in future");
+        }
+        // LocalTime s = LocalTime.of(9, 0);
+        // LocalTime e = LocalTime.of(14, 0);
+        // List<String> ts =  this.createTimeSlots(s, e, 30);
+        // if(ts.contains(patient.getSlotTime())){
+        //     throw new TimeSlotIsAlreadyBookException("Time slot is already booked");
+        // }
+
+        boolean slotIsBooked = patientRepository.existsByDoctoridAndAppointmentDateAndSlotTime(patient.getDoctorid(), patient.getAppointmentDate(), patient.getSlotTime());
+        if(slotIsBooked){
+            throw new TimeSlotIsAlreadyBookException("Time slot is already booked");
+        }
+        boolean isEmailExist = patientRepository.existsByEmail(patient.getEmail());
+        if(isEmailExist){
+            throw new EmailAlreadyExsistException("Email : "+patient.getEmail() + " is already have appointment");
         }
         Doctor doctor = restTemplate.getForObject("http://localhost:9195/doctor/"+patient.getDoctorid(), Doctor.class);
          patient.setDoctor(doctor);
@@ -73,6 +92,31 @@ public class PatientServiceImpl implements PatientService{
         patientRepository.save(p);
 
         return "data Updated";
+    }
+
+    @Override
+    public List<String> createTimeSlots(LocalTime s, LocalTime e, int sm) {
+       List<String> ts = new ArrayList<>();
+       LocalTime ct = s;
+
+       while(!ct.plusMinutes(sm).isAfter(e)){
+        String slot = ct + "-" + ct.plusMinutes(sm);
+        ts.add(slot);
+        ct = ct.plusMinutes(sm);
+       }
+       System.out.println(ts);
+       return ts;
+    }
+
+    @Override
+    public List<String> getAvailableTimeSlots(String doctorid, LocalTime appointmentDate) {
+         List<String> allSlots = this.createTimeSlots(LocalTime.of(9, 0), LocalTime.of(17, 0), 30);
+
+         List<String> bookedSlots = patientRepository.findByDoctoridAndAppointmentDate(doctorid, appointmentDate)
+                                    .stream().map(Patient::getSlotTime).toList();
+
+        allSlots.removeAll(bookedSlots);
+        return allSlots;
     }
     
 }
