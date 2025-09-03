@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.think.appointmentmangement.Entity.Patient;
@@ -24,17 +25,18 @@ import com.think.appointmentmangement.Service.PatientService;
 import jakarta.validation.Valid;
 
 @RestController
+@RequestMapping("/patient")
 public class PatientController {
 
     @Autowired
     private PatientService patientService;
 
-    @GetMapping("/patient/{id}")
+    @GetMapping("/{id}")
     public Patient getPatientById(@PathVariable String id) throws PatientNotFoundException{
         return patientService.getPatient(id);
     }
 
-    @PostMapping("/patient/add")
+    @PostMapping("/post")
     public ResponseEntity<Patient> addPatient(@Valid @RequestBody Patient patient) throws DateException, TimeSlotIsAlreadyBookException, EmailAlreadyExsistException{
         patient.setId(UUID.randomUUID().toString());
         patientService.addPatient(patient);
@@ -42,17 +44,17 @@ public class PatientController {
         return ResponseEntity.ok(patient);
     }
 
-    @GetMapping("/patient/getAll")
+    @GetMapping
     public List<Patient> getAllPatient(){
         return patientService.getAllPatients();
     }
 
-    @DeleteMapping("/patient/delete/{id}")
+    @DeleteMapping("/{id}")
     public void deletePatient(@PathVariable String id) throws PatientNotFoundException{
         patientService.deletePatient(id);
     }
 
-    @PutMapping("/patient/update/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<String> updateData(@PathVariable String id,@RequestBody Patient patient) throws PatientNotFoundException{
         String msg = patientService.updateDetails(id, patient);
         return ResponseEntity.ok(msg);

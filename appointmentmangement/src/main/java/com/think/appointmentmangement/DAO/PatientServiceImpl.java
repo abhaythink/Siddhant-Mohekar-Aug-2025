@@ -17,6 +17,7 @@ import com.think.appointmentmangement.Exception.EmailAlreadyExsistException;
 import com.think.appointmentmangement.Exception.PatientNotFoundException;
 import com.think.appointmentmangement.Exception.TimeSlotIsAlreadyBookException;
 import com.think.appointmentmangement.Repository.PatientRepository;
+import com.think.appointmentmangement.Service.NotificationService;
 import com.think.appointmentmangement.Service.PatientService;
 
 @Service
@@ -27,6 +28,9 @@ public class PatientServiceImpl implements PatientService{
 
     @Autowired
     private RestTemplate restTemplate;
+
+    @Autowired
+    private NotificationService ns;
 
     @Override
     public Patient getPatient(String id) throws PatientNotFoundException {
@@ -76,6 +80,7 @@ public class PatientServiceImpl implements PatientService{
         if(isEmailExist){
             throw new EmailAlreadyExsistException("Email : "+patient.getEmail() + " is already have appointment");
         }
+        ns.sendMail(patient.getEmail(), "Booked Time :"+patient.getSlotTime() + " is on Date: "+ patient.getAppointmentDate());
         Doctor doctor = restTemplate.getForObject("http://localhost:9195/doctor/"+patient.getDoctorid(), Doctor.class);
          patient.setDoctor(doctor);
         patientRepository.save(patient);
